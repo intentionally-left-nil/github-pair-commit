@@ -10,6 +10,20 @@ function _require()
   fi
 }
 
+function _addToStartup()
+{
+  local path=$1
+  local dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+  if [ -f $path ]; then
+    if grep -q 'pair_with.sh' "$path"; then
+      echo "pair_with_sh is already added to $path"
+    else
+      echo "Adding the pair_with script to $path"
+      echo "[ -f $dir/pair_with.sh ] && . $dir/pair_with.sh" >> $path
+    fi
+  fi
+}
+
 function setup()
 {
   # Make sure dependencies are installed
@@ -36,15 +50,8 @@ function setup()
   local dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
   cp $dir/commit-msg $hookpath
 
-  if [ -f ${HOME}/.bashrc ]; then
-    echo "Adding the pair_with script to ${HOME}/.bashrc"
-    echo "[ -f $dir/pair_with.sh ] && . $dir/pair_with.sh" >> ${HOME}/.bashrc
-  fi
-
-  if [ -f ${HOME}/.zshrc ]; then
-    echo "Adding the pair_with script to ${HOME}/.zshrc"
-    echo "[ -f $dir/pair_with.sh ] && . $dir/pair_with.sh" >> ${HOME}/.zshrc
-  fi
+  _addToStartup "${HOME}/.bashrc"
+  _addToStartup "${HOME}/.zshrc"
 }
 
 setup
