@@ -1,0 +1,8 @@
+#! /bin/bash
+
+if [ -n "$GIT_PAIR_EMAIL" ] && [ -n "GIT_PAIR_EMAIL" ]; then
+  if ! grep -q '^Co-authored-by:' "$COMMIT_MSG_FILE"; then
+    echo -e "\n" >> $1
+    echo "Co-authored-by $GIT_PAIR_NAME <$GIT_PAIR_EMAIL>" >> $1
+  fi
+fi;
