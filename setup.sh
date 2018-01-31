@@ -36,8 +36,15 @@ function setup()
   local dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
   cp $dir/commit-msg $hookpath
 
-  echo "Adding the pair_with script to ${HOME}/.bashrc"
-  echo "[ -f $dir/pair_with.sh ] && . $dir/pair_with.sh" >> ${HOME}/.bashrc
+  if [ -f ${HOME}/.bashrc ]; then
+    echo "Adding the pair_with script to ${HOME}/.bashrc"
+    echo "[ -f $dir/pair_with.sh ] && . $dir/pair_with.sh" >> ${HOME}/.bashrc
+  fi
+
+  if [ -f ${HOME}/.zshrc ]; then
+    echo "Adding the pair_with script to ${HOME}/.zshrc"
+    echo "[ -f $dir/pair_with.sh ] && . $dir/pair_with.sh" >> ${HOME}/.zshrc
+  fi
 }
 
 setup
