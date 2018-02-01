@@ -14,10 +14,11 @@ This repository makes it muuuch simpler to use this new functionality. Here's ho
 1) Open your terminal and cd into `github-pair-commit`
 1) run `./setup.sh`
 1) Open a new terminal (or source your environment)
+1) Go to all existing git repositories and type `git init`
 
 
 ## Usage
 The commit script works by setting `$GIT_PAIR_NAME` and `GIT_PAIR_EMAIL` as environment variables.
-  
+
 You can automatically set these by typing `pair_with {github user name}`
 When you're done pairing, simply type `work_solo`
