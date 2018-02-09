@@ -13,13 +13,12 @@ function _require()
 function _addToStartup()
 {
   local path=$1
-  local dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
   if [ -f $path ]; then
     if grep -q 'pair_with.sh' "$path"; then
       echo "pair_with_sh is already added to $path"
     else
       echo "Adding the pair_with script to $path"
-      echo "[ -f $dir/pair_with.sh ] && . $dir/pair_with.sh" >> $path
+      echo "[ -f /usr/local/bin/pair_with.sh ] && . /usr/local/bin/pair_with.sh" >> $path
     fi
   fi
 }
@@ -46,8 +45,12 @@ function setup()
     exit 1
   fi
 
-  # Copy the commit-msg to the hooks path
   local dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+  # Move the scripts to /usr/local/bin
+  cp $dir/pair_with.sh /usr/local/bin
+  cp $dir/pair_with_impl.sh /usr/local/bin
+
+  # Copy the commit-msg to the hooks path
   cp $dir/commit-msg $hookpath
 
   _addToStartup "${HOME}/.bashrc"
