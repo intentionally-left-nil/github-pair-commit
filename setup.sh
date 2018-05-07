@@ -48,7 +48,6 @@ function setup()
   local dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
   # Move the scripts to /usr/local/bin
   cp $dir/pair_with.sh /usr/local/bin
-  cp $dir/pair_with_impl.sh /usr/local/bin
 
   # Copy the commit-msg to the hooks path
   cp $dir/commit-msg $hookpath
